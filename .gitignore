@@ -1,0 +1,39 @@
+node_modules/
+dist/
+.env
+*.log
+.DS_Store
+backend/prisma/migrations/
+# dependencies
+node_modules/
+**/node_modules/
+
+# environment
+.env
+.env.*
+!.env.example
+backend/.env
+frontend/.env
+
+# build
+dist/
+build/
+**/dist/
+**/build/
+
+# logs
+*.log
+npm-debug.log*
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Prisma
+backend/prisma/migrations/**/migration_lock.toml
+
+# Không đẩy file cài Node
+*.msi
+*.exe

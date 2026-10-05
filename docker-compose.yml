@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: kho
+      POSTGRES_PASSWORD: kho_pass
+      POSTGRES_DB: khorau
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://kho:kho_pass@postgres:5432/khorau?schema=public
+      JWT_SECRET: doi_chuoi_bi_mat_nay_khi_trien_khai_that
+      JWT_EXPIRES_IN: 15m
+      PORT: 3000
+    ports:
+      - "3000:3000"
+
+  web:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      - api
+    environment:
+      VITE_API_URL: http://localhost:3000/api/v1
+    ports:
+      - "5173:80"
+
+volumes:
+  pgdata:
